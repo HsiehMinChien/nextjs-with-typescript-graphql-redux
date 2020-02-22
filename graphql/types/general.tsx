@@ -1005,10 +1005,10 @@ export type UserSubscriptionPayload = {
   previousValues?: Maybe<UserPreviousValues>,
 };
 
-export type TestQueryVariables = {};
+export type GetAllUsersQueryVariables = {};
 
 
-export type TestQuery = (
+export type GetAllUsersQuery = (
   { __typename?: 'Query' }
   & { allUsers: Array<(
     { __typename?: 'User' }
@@ -1017,28 +1017,67 @@ export type TestQuery = (
 );
 
 
-export const TestDocument = gql`
-    query Test {
+export const GetAllUsersDocument = gql`
+    query GetAllUsers {
   allUsers {
     id
   }
 }
     `;
-export type TestComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<TestQuery, TestQueryVariables>, 'query'>;
+export type GetAllUsersComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllUsersQuery, GetAllUsersQueryVariables>, 'query'>;
 
-    export const TestComponent = (props: TestComponentProps) => (
-      <ApolloReactComponents.Query<TestQuery, TestQueryVariables> query={TestDocument} {...props} />
+    export const GetAllUsersComponent = (props: GetAllUsersComponentProps) => (
+      <ApolloReactComponents.Query<GetAllUsersQuery, GetAllUsersQueryVariables> query={GetAllUsersDocument} {...props} />
     );
     
-export type TestProps<TChildProps = {}> = ApolloReactHoc.DataProps<TestQuery, TestQueryVariables> & TChildProps;
-export function withTest<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+export type GetAllUsersProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetAllUsersQuery, GetAllUsersQueryVariables> & TChildProps;
+export function withGetAllUsers<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  TestQuery,
-  TestQueryVariables,
-  TestProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, TestQuery, TestQueryVariables, TestProps<TChildProps>>(TestDocument, {
-      alias: 'test',
+  GetAllUsersQuery,
+  GetAllUsersQueryVariables,
+  GetAllUsersProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetAllUsersQuery, GetAllUsersQueryVariables, GetAllUsersProps<TChildProps>>(GetAllUsersDocument, {
+      alias: 'getAllUsers',
       ...operationOptions
     });
 };
-export type TestQueryResult = ApolloReactCommon.QueryResult<TestQuery, TestQueryVariables>;
+export type GetAllUsersQueryResult = ApolloReactCommon.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
+
+      export interface IntrospectionResultData {
+        __schema: {
+          types: {
+            kind: string;
+            name: string;
+            possibleTypes: {
+              name: string;
+            }[];
+          }[];
+        };
+      }
+      const result: IntrospectionResultData = {
+  "__schema": {
+    "types": [
+      {
+        "kind": "INTERFACE",
+        "name": "Node",
+        "possibleTypes": [
+          {
+            "name": "File"
+          },
+          {
+            "name": "Post"
+          },
+          {
+            "name": "User"
+          }
+        ]
+      }
+    ]
+  }
+};
+      export default result;
+    
+
+// Generated in 2020-02-22T23:58:47+08:00
+
+// Demo for nextjs with typescript graphql redux

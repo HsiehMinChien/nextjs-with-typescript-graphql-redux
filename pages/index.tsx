@@ -1,14 +1,12 @@
 import withApollo from '../lib/with-apollo'
-import Link from 'next/link'
-import { withRedux } from '../lib/redux';
-import { useDispatch } from 'react-redux';
-import useInterval from '../lib/useInterval';
 import { compose } from 'redux'
+import { useDispatch, } from 'react-redux';
+import { withRedux, } from '../lib/redux';
+import useInterval from '../lib/useInterval';
 import Clock from '../components/clock';
-import { useViewerQuery } from '../lib/viewer.graphql'
+import { GetAllUsersComponent, } from '../graphql/types/general';
 
 const Index = () => {
-  const { data } = useViewerQuery()
   const dispatch = useDispatch()
   useInterval(() => {
     dispatch({
@@ -16,22 +14,18 @@ const Index = () => {
       light: true,
       lastUpdate: Date.now(),
     })
-  }, 1000)
-  if (data) {
-    const { viewer } = data
-    return (
-      <div>
-        You're signed in as {viewer.name} and you're {viewer.status} goto{' '}
-        <Link href="/about">
-          <a>static</a>
-        </Link>{' '}
-        page.
-        <Clock />
-      </div>
-    )
-  }
-
-  return <div>...</div>
+  }, 1000);
+  return (
+    <>
+      <GetAllUsersComponent>
+        {(props: any) => {
+          console.log(props);
+          return <div>GetAllUsersComponent</div>
+        }}
+      </GetAllUsersComponent>
+      <Clock />
+    </>
+  );
 }
 
 export default compose(withRedux, withApollo)(Index)

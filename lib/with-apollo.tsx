@@ -157,7 +157,7 @@ function createIsomorphLink() {
   } else {
     const { HttpLink } = require('apollo-link-http')
     return new HttpLink({
-      uri: '/api/graphql',
+      uri: 'https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn',
       credentials: 'same-origin',
     })
   }
