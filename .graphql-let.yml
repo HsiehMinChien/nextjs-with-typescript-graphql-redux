@@ -1,0 +1,8 @@
+generateDir: __generated__
+# schema: '**/*.graphqls'
+schema: "https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn"
+documents: "**/*.graphql"
+plugins:
+  - typescript
+  - typescript-operations
+  - typescript-react-apollo
