@@ -1,0 +1,33 @@
+fragment Node on Node {
+  id
+}
+
+fragment File on File {
+  ...Node
+  createdAt
+  updatedAt
+  contentType
+  name
+  secret
+  size
+  url
+}
+
+fragment User on User {
+  ...Node
+  createdAt
+  email
+  firstName
+  lastName
+  password
+  updatedAt
+}
+
+fragment Post on Post {
+  ...Node
+  createdAt
+  title
+  updatedAt
+  url
+  votes
+}

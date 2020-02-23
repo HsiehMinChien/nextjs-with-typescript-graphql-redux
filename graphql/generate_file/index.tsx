@@ -1007,6 +1007,63 @@ export type UserSubscriptionPayload = {
   previousValues?: Maybe<UserPreviousValues>,
 };
 
+type Node_File_Fragment = (
+  { __typename?: 'File' }
+  & Pick<File, 'id'>
+);
+
+type Node_Post_Fragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'id'>
+);
+
+type Node_User_Fragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'id'>
+);
+
+export type NodeFragment = Node_File_Fragment | Node_Post_Fragment | Node_User_Fragment;
+
+export type FileFragment = (
+  { __typename?: 'File' }
+  & Pick<File, 'createdAt' | 'updatedAt' | 'contentType' | 'name' | 'secret' | 'size' | 'url'>
+  & Node_File_Fragment
+);
+
+export type UserFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'createdAt' | 'email' | 'firstName' | 'lastName' | 'password' | 'updatedAt'>
+  & Node_User_Fragment
+);
+
+export type PostFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'createdAt' | 'title' | 'updatedAt' | 'url' | 'votes'>
+  & Node_Post_Fragment
+);
+
+export type GetAllFilesQueryVariables = {};
+
+
+export type GetAllFilesQuery = (
+  { __typename?: 'Query' }
+  & { allFiles: Array<(
+    { __typename?: 'File' }
+    & FileFragment
+  )> }
+);
+
+export type GetAllPostsQueryVariables = {};
+
+
+export type GetAllPostsQuery = (
+  { __typename?: 'Query' }
+  & { allPosts: Array<(
+    { __typename?: 'Post' }
+    & PostFragment
+  )> }
+);
+
 export type GetAllUsersQueryVariables = {};
 
 
@@ -1014,18 +1071,105 @@ export type GetAllUsersQuery = (
   { __typename?: 'Query' }
   & { allUsers: Array<(
     { __typename?: 'User' }
-    & Pick<User, 'id'>
+    & UserFragment
   )> }
 );
 
+export const NodeFragmentDoc = gql`
+    fragment Node on Node {
+  id
+}
+    `;
+export const FileFragmentDoc = gql`
+    fragment File on File {
+  ...Node
+  createdAt
+  updatedAt
+  contentType
+  name
+  secret
+  size
+  url
+}
+    ${NodeFragmentDoc}`;
+export const UserFragmentDoc = gql`
+    fragment User on User {
+  ...Node
+  createdAt
+  email
+  firstName
+  lastName
+  password
+  updatedAt
+}
+    ${NodeFragmentDoc}`;
+export const PostFragmentDoc = gql`
+    fragment Post on Post {
+  ...Node
+  createdAt
+  title
+  updatedAt
+  url
+  votes
+}
+    ${NodeFragmentDoc}`;
+export const GetAllFilesDocument = gql`
+    query GetAllFiles {
+  allFiles {
+    ...File
+  }
+}
+    ${FileFragmentDoc}`;
+export type GetAllFilesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllFilesQuery, GetAllFilesQueryVariables>, 'query'>;
 
+    export const GetAllFilesComponent = (props: GetAllFilesComponentProps) => (
+      <ApolloReactComponents.Query<GetAllFilesQuery, GetAllFilesQueryVariables> query={GetAllFilesDocument} {...props} />
+    );
+    
+export type GetAllFilesProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetAllFilesQuery, GetAllFilesQueryVariables> & TChildProps;
+export function withGetAllFiles<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetAllFilesQuery,
+  GetAllFilesQueryVariables,
+  GetAllFilesProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetAllFilesQuery, GetAllFilesQueryVariables, GetAllFilesProps<TChildProps>>(GetAllFilesDocument, {
+      alias: 'getAllFiles',
+      ...operationOptions
+    });
+};
+export type GetAllFilesQueryResult = ApolloReactCommon.QueryResult<GetAllFilesQuery, GetAllFilesQueryVariables>;
+export const GetAllPostsDocument = gql`
+    query GetAllPosts {
+  allPosts {
+    ...Post
+  }
+}
+    ${PostFragmentDoc}`;
+export type GetAllPostsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllPostsQuery, GetAllPostsQueryVariables>, 'query'>;
+
+    export const GetAllPostsComponent = (props: GetAllPostsComponentProps) => (
+      <ApolloReactComponents.Query<GetAllPostsQuery, GetAllPostsQueryVariables> query={GetAllPostsDocument} {...props} />
+    );
+    
+export type GetAllPostsProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetAllPostsQuery, GetAllPostsQueryVariables> & TChildProps;
+export function withGetAllPosts<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetAllPostsQuery,
+  GetAllPostsQueryVariables,
+  GetAllPostsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetAllPostsQuery, GetAllPostsQueryVariables, GetAllPostsProps<TChildProps>>(GetAllPostsDocument, {
+      alias: 'getAllPosts',
+      ...operationOptions
+    });
+};
+export type GetAllPostsQueryResult = ApolloReactCommon.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
 export const GetAllUsersDocument = gql`
     query GetAllUsers {
   allUsers {
-    id
+    ...User
   }
 }
-    `;
+    ${UserFragmentDoc}`;
 export type GetAllUsersComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllUsersQuery, GetAllUsersQueryVariables>, 'query'>;
 
     export const GetAllUsersComponent = (props: GetAllUsersComponentProps) => (
@@ -1425,6 +1569,6 @@ export type Resolvers<ContextType = any> = {
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
 
-// Generated in 2020-02-23T11:57:09+08:00
+// Generated in 2020-02-23T16:04:27+08:00
 
 // Demo for nextjs with typescript graphql redux
