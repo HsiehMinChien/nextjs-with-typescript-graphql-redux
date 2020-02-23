@@ -1078,6 +1078,6 @@ export type GetAllUsersQueryResult = ApolloReactCommon.QueryResult<GetAllUsersQu
       export default result;
     
 
-// Generated in 2020-02-22T23:58:47+08:00
+// Generated in 2020-02-23T11:50:29+08:00
 
 // Demo for nextjs with typescript graphql redux

@@ -4,7 +4,7 @@ import { useDispatch, } from 'react-redux';
 import { withRedux, } from '../lib/redux';
 import useInterval from '../lib/useInterval';
 import Clock from '../components/clock';
-import { GetAllUsersComponent, } from '../graphql/types/general';
+import { GetAllUsersComponent, } from '../graphql/generate_file';
 
 const Index = () => {
   const dispatch = useDispatch()

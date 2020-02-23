@@ -2,7 +2,7 @@ overwrite: true
 schema: "https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn"
 documents: "graphql/document/**/*.graphql"
 generates:
-  graphql/types/general.tsx:
+  graphql/generate_file/index.tsx:
     plugins:
       - typescript
       - typescript-operations
