@@ -4,6 +4,8 @@ import Head from 'next/head'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory'
+import { HttpLink, } from 'apollo-link-http';
+import fetch from 'isomorphic-unfetch'
 
 type TApolloClient = ApolloClient<NormalizedCacheObject>
 
@@ -138,27 +140,14 @@ function initApolloClient(initialState?: any) {
  * @param  {Object} [initialState={}]
  */
 function createApolloClient(initialState = {}) {
-  const ssrMode = typeof window === 'undefined'
-  const cache = new InMemoryCache().restore(initialState)
-
   // Check out https://github.com/zeit/next.js/pull/4611 if you want to use the AWSAppSyncClient
   return new ApolloClient({
-    ssrMode,
-    link: createIsomorphLink(),
-    cache,
+    ssrMode: typeof window === 'undefined', // Disables forceFetch on the server (so queries are only run once)
+    link: new HttpLink({
+      uri: 'https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn', // Server URL (must be absolute)
+      credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
+      fetch,
+    }),
+    cache: new InMemoryCache().restore(initialState),
   })
-}
-
-function createIsomorphLink() {
-  if (typeof window === 'undefined') {
-    const { SchemaLink } = require('apollo-link-schema')
-    const schema = require('./schema').default
-    return new SchemaLink({ schema })
-  } else {
-    const { HttpLink } = require('apollo-link-http')
-    return new HttpLink({
-      uri: 'https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn',
-      credentials: 'same-origin',
-    })
-  }
 }

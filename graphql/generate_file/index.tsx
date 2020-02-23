@@ -1,9 +1,11 @@
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import gql from 'graphql-tag';
 import * as React from 'react';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHoc from '@apollo/react-hoc';
 export type Maybe<T> = T | null;
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -1078,6 +1080,351 @@ export type GetAllUsersQueryResult = ApolloReactCommon.QueryResult<GetAllUsersQu
       export default result;
     
 
-// Generated in 2020-02-23T11:50:29+08:00
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
+
+
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
+  fragment: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes>;
+
+export type isTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Query: ResolverTypeWrapper<{}>,
+  FileFilter: FileFilter,
+  String: ResolverTypeWrapper<Scalars['String']>,
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  FileOrderBy: FileOrderBy,
+  File: ResolverTypeWrapper<File>,
+  Node: ResolverTypeWrapper<Node>,
+  PostFilter: PostFilter,
+  PostOrderBy: PostOrderBy,
+  Post: ResolverTypeWrapper<Post>,
+  UserFilter: UserFilter,
+  UserOrderBy: UserOrderBy,
+  User: ResolverTypeWrapper<User>,
+  _QueryMeta: ResolverTypeWrapper<_QueryMeta>,
+  Mutation: ResolverTypeWrapper<{}>,
+  UpdateFile: UpdateFile,
+  CreateFile: CreateFile,
+  UpdatePost: UpdatePost,
+  CreatePost: CreatePost,
+  UpdateUser: UpdateUser,
+  CreateUser: CreateUser,
+  AUTH_PROVIDER_EMAIL: Auth_Provider_Email,
+  SigninPayload: ResolverTypeWrapper<SigninPayload>,
+  AuthProviderSignupData: AuthProviderSignupData,
+  InvokeFunctionInput: InvokeFunctionInput,
+  InvokeFunctionPayload: ResolverTypeWrapper<InvokeFunctionPayload>,
+  Subscription: ResolverTypeWrapper<{}>,
+  FileSubscriptionFilter: FileSubscriptionFilter,
+  _ModelMutationType: _ModelMutationType,
+  FileSubscriptionFilterNode: FileSubscriptionFilterNode,
+  FileSubscriptionPayload: ResolverTypeWrapper<FileSubscriptionPayload>,
+  FilePreviousValues: ResolverTypeWrapper<FilePreviousValues>,
+  PostSubscriptionFilter: PostSubscriptionFilter,
+  PostSubscriptionFilterNode: PostSubscriptionFilterNode,
+  PostSubscriptionPayload: ResolverTypeWrapper<PostSubscriptionPayload>,
+  PostPreviousValues: ResolverTypeWrapper<PostPreviousValues>,
+  UserSubscriptionFilter: UserSubscriptionFilter,
+  UserSubscriptionFilterNode: UserSubscriptionFilterNode,
+  UserSubscriptionPayload: ResolverTypeWrapper<UserSubscriptionPayload>,
+  UserPreviousValues: ResolverTypeWrapper<UserPreviousValues>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  Query: {},
+  FileFilter: FileFilter,
+  String: Scalars['String'],
+  DateTime: Scalars['DateTime'],
+  ID: Scalars['ID'],
+  Int: Scalars['Int'],
+  FileOrderBy: FileOrderBy,
+  File: File,
+  Node: Node,
+  PostFilter: PostFilter,
+  PostOrderBy: PostOrderBy,
+  Post: Post,
+  UserFilter: UserFilter,
+  UserOrderBy: UserOrderBy,
+  User: User,
+  _QueryMeta: _QueryMeta,
+  Mutation: {},
+  UpdateFile: UpdateFile,
+  CreateFile: CreateFile,
+  UpdatePost: UpdatePost,
+  CreatePost: CreatePost,
+  UpdateUser: UpdateUser,
+  CreateUser: CreateUser,
+  AUTH_PROVIDER_EMAIL: Auth_Provider_Email,
+  SigninPayload: SigninPayload,
+  AuthProviderSignupData: AuthProviderSignupData,
+  InvokeFunctionInput: InvokeFunctionInput,
+  InvokeFunctionPayload: InvokeFunctionPayload,
+  Subscription: {},
+  FileSubscriptionFilter: FileSubscriptionFilter,
+  _ModelMutationType: _ModelMutationType,
+  FileSubscriptionFilterNode: FileSubscriptionFilterNode,
+  FileSubscriptionPayload: FileSubscriptionPayload,
+  FilePreviousValues: FilePreviousValues,
+  PostSubscriptionFilter: PostSubscriptionFilter,
+  PostSubscriptionFilterNode: PostSubscriptionFilterNode,
+  PostSubscriptionPayload: PostSubscriptionPayload,
+  PostPreviousValues: PostPreviousValues,
+  UserSubscriptionFilter: UserSubscriptionFilter,
+  UserSubscriptionFilterNode: UserSubscriptionFilterNode,
+  UserSubscriptionPayload: UserSubscriptionPayload,
+  UserPreviousValues: UserPreviousValues,
+  Boolean: Scalars['Boolean'],
+};
+
+export type _QueryMetaResolvers<ContextType = any, ParentType extends ResolversParentTypes['_QueryMeta'] = ResolversParentTypes['_QueryMeta']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime'
+}
+
+export type FileResolvers<ContextType = any, ParentType extends ResolversParentTypes['File'] = ResolversParentTypes['File']> = {
+  contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  secret?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  size?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FilePreviousValuesResolvers<ContextType = any, ParentType extends ResolversParentTypes['FilePreviousValues'] = ResolversParentTypes['FilePreviousValues']> = {
+  contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  secret?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  size?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FileSubscriptionPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['FileSubscriptionPayload'] = ResolversParentTypes['FileSubscriptionPayload']> = {
+  mutation?: Resolver<ResolversTypes['_ModelMutationType'], ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType>,
+  updatedFields?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>,
+  previousValues?: Resolver<Maybe<ResolversTypes['FilePreviousValues']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type InvokeFunctionPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['InvokeFunctionPayload'] = ResolversParentTypes['InvokeFunctionPayload']> = {
+  result?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createFile?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType, RequireFields<MutationCreateFileArgs, 'name'>>,
+  createPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'title' | 'url'>>,
+  updateFile?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType, RequireFields<MutationUpdateFileArgs, 'id'>>,
+  updatePost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'id'>>,
+  updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id'>>,
+  updateOrCreateFile?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType, RequireFields<MutationUpdateOrCreateFileArgs, 'update' | 'create'>>,
+  updateOrCreatePost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationUpdateOrCreatePostArgs, 'update' | 'create'>>,
+  updateOrCreateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateOrCreateUserArgs, 'update' | 'create'>>,
+  deleteFile?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType, RequireFields<MutationDeleteFileArgs, 'id'>>,
+  deletePost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>,
+  deleteUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
+  signinUser?: Resolver<ResolversTypes['SigninPayload'], ParentType, ContextType, MutationSigninUserArgs>,
+  createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'firstName' | 'lastName' | 'authProvider'>>,
+  invokeFunction?: Resolver<Maybe<ResolversTypes['InvokeFunctionPayload']>, ParentType, ContextType, RequireFields<MutationInvokeFunctionArgs, 'input'>>,
+};
+
+export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
+  __resolveType: TypeResolveFn<'File' | 'Post' | 'User', ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+};
+
+export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  votes?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type PostPreviousValuesResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostPreviousValues'] = ResolversParentTypes['PostPreviousValues']> = {
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  votes?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type PostSubscriptionPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostSubscriptionPayload'] = ResolversParentTypes['PostSubscriptionPayload']> = {
+  mutation?: Resolver<ResolversTypes['_ModelMutationType'], ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>,
+  updatedFields?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>,
+  previousValues?: Resolver<Maybe<ResolversTypes['PostPreviousValues']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  allFiles?: Resolver<Array<ResolversTypes['File']>, ParentType, ContextType, QueryAllFilesArgs>,
+  allPosts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType, QueryAllPostsArgs>,
+  allUsers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType, QueryAllUsersArgs>,
+  _allFilesMeta?: Resolver<ResolversTypes['_QueryMeta'], ParentType, ContextType, Query_AllFilesMetaArgs>,
+  _allPostsMeta?: Resolver<ResolversTypes['_QueryMeta'], ParentType, ContextType, Query_AllPostsMetaArgs>,
+  _allUsersMeta?: Resolver<ResolversTypes['_QueryMeta'], ParentType, ContextType, Query_AllUsersMetaArgs>,
+  File?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType, QueryFileArgs>,
+  Post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, QueryPostArgs>,
+  User?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, QueryUserArgs>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'id'>>,
+};
+
+export type SigninPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['SigninPayload'] = ResolversParentTypes['SigninPayload']> = {
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  File?: SubscriptionResolver<Maybe<ResolversTypes['FileSubscriptionPayload']>, "File", ParentType, ContextType, SubscriptionFileArgs>,
+  Post?: SubscriptionResolver<Maybe<ResolversTypes['PostSubscriptionPayload']>, "Post", ParentType, ContextType, SubscriptionPostArgs>,
+  User?: SubscriptionResolver<Maybe<ResolversTypes['UserSubscriptionPayload']>, "User", ParentType, ContextType, SubscriptionUserArgs>,
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UserPreviousValuesResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserPreviousValues'] = ResolversParentTypes['UserPreviousValues']> = {
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UserSubscriptionPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserSubscriptionPayload'] = ResolversParentTypes['UserSubscriptionPayload']> = {
+  mutation?: Resolver<ResolversTypes['_ModelMutationType'], ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  updatedFields?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>,
+  previousValues?: Resolver<Maybe<ResolversTypes['UserPreviousValues']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type Resolvers<ContextType = any> = {
+  _QueryMeta?: _QueryMetaResolvers<ContextType>,
+  DateTime?: GraphQLScalarType,
+  File?: FileResolvers<ContextType>,
+  FilePreviousValues?: FilePreviousValuesResolvers<ContextType>,
+  FileSubscriptionPayload?: FileSubscriptionPayloadResolvers<ContextType>,
+  InvokeFunctionPayload?: InvokeFunctionPayloadResolvers<ContextType>,
+  Mutation?: MutationResolvers<ContextType>,
+  Node?: NodeResolvers,
+  Post?: PostResolvers<ContextType>,
+  PostPreviousValues?: PostPreviousValuesResolvers<ContextType>,
+  PostSubscriptionPayload?: PostSubscriptionPayloadResolvers<ContextType>,
+  Query?: QueryResolvers<ContextType>,
+  SigninPayload?: SigninPayloadResolvers<ContextType>,
+  Subscription?: SubscriptionResolvers<ContextType>,
+  User?: UserResolvers<ContextType>,
+  UserPreviousValues?: UserPreviousValuesResolvers<ContextType>,
+  UserSubscriptionPayload?: UserSubscriptionPayloadResolvers<ContextType>,
+};
+
+
+/**
+ * @deprecated
+ * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
+*/
+export type IResolvers<ContextType = any> = Resolvers<ContextType>;
+
+
+// Generated in 2020-02-23T11:57:09+08:00
 
 // Demo for nextjs with typescript graphql redux

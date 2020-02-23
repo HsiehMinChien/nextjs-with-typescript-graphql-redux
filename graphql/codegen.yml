@@ -8,6 +8,7 @@ generates:
       - typescript-operations
       - typescript-react-apollo
       - fragment-matcher
+      - typescript-resolvers
       - add:
           placement: "append"
           content:
