@@ -1032,7 +1032,7 @@ export type FileFragment = (
 
 export type UserFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'createdAt' | 'email' | 'firstName' | 'lastName' | 'password' | 'updatedAt'>
+  & Pick<User, 'firstName' | 'lastName'>
   & Node_User_Fragment
 );
 
@@ -1095,12 +1095,8 @@ export const FileFragmentDoc = gql`
 export const UserFragmentDoc = gql`
     fragment User on User {
   ...Node
-  createdAt
-  email
   firstName
   lastName
-  password
-  updatedAt
 }
     ${NodeFragmentDoc}`;
 export const PostFragmentDoc = gql`
@@ -1569,6 +1565,6 @@ export type Resolvers<ContextType = any> = {
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
 
-// Generated in 2020-02-23T16:04:27+08:00
+// Generated in 2020-02-23T16:38:57+08:00
 
 // Demo for nextjs with typescript graphql redux

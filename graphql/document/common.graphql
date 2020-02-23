@@ -15,12 +15,8 @@ fragment File on File {
 
 fragment User on User {
   ...Node
-  createdAt
-  email
   firstName
   lastName
-  password
-  updatedAt
 }
 
 fragment Post on Post {
