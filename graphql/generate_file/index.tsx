@@ -1565,6 +1565,6 @@ export type Resolvers<ContextType = any> = {
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
 
-// Generated in 2020-02-23T16:38:57+08:00
+// Generated in 2020-02-23T21:04:49+08:00
 
 // Demo for nextjs with typescript graphql redux

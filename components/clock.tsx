@@ -1,5 +1,7 @@
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
+import cx from "classnames";
+import "./style.styl";
 
 const useClock = () => {
   return useSelector(
@@ -19,20 +21,8 @@ const formatTime = (time: any) => {
 const Clock = () => {
   const { lastUpdate, light } = useClock();
   return (
-    <div className={light ? "light" : ""}>
+    <div className={cx("clock", { light: light })}>
       {formatTime(lastUpdate)}
-      <style jsx>{`
-        div {
-          padding: 15px;
-          display: inline-block;
-          color: #82fa58;
-          font: 50px menlo, monaco, monospace;
-          background-color: #000;
-        }
-        .light {
-          background-color: #999;
-        }
-      `}</style>
     </div>
   );
 };

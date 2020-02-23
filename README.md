@@ -28,3 +28,4 @@ This project is for demo next.js with Typescript, redux, graphQL(apollo), and gr
 4. [nextjs with apollo and redux](https://github.com/zeit/next.js/tree/canary/examples/with-apollo-and-redux)
 5. [nextjs with css](https://github.com/zeit/next-plugins/tree/master/packages/next-css)
 6. [Prettier](https://prettier.io/)
+7. [nextjs with stylus](https://github.com/zeit/next-plugins/tree/master/packages/next-stylus)
