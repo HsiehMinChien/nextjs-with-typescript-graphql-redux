@@ -1,46 +1,52 @@
-import withApollo from '../lib/with-apollo'
-import { compose } from 'redux'
-import { useDispatch, } from 'react-redux';
-import { withRedux, } from '../lib/redux';
-import useInterval from '../lib/useInterval';
-import Clock from '../components/clock';
-import { GetAllUsersComponent, } from '../graphql/generate_file';
-import { Table } from 'antd';
-import 'antd/dist/antd.css';
+import { compose } from "redux";
+import { useDispatch } from "react-redux";
+import { Table, Spin } from "antd";
+import withApollo from "../lib/with-apollo";
+import { withRedux } from "../lib/redux";
+import useInterval from "../lib/useInterval";
+import Clock from "../components/clock";
+import { GetAllUsersComponent } from "../graphql/generate_file";
+import "antd/dist/antd.css";
 
 const columns = [
   {
-    title: 'id',
-    dataIndex: 'id',
-    key: 'id',
+    title: "id",
+    dataIndex: "id",
+    key: "id"
   },
   {
-    title: 'firstName',
-    key: 'firstName',
-    dataIndex: 'firstName',
+    title: "firstName",
+    key: "firstName",
+    dataIndex: "firstName"
   },
   {
-    title: 'lastName',
-    key: 'lastName',
-    dataIndex: 'lastName',
-  },
+    title: "lastName",
+    key: "lastName",
+    dataIndex: "lastName"
+  }
 ];
 
-const Index = () => {
-  const dispatch = useDispatch()
+function Home() {
+  const dispatch = useDispatch();
   useInterval(() => {
     dispatch({
-      type: 'TICK',
+      type: "TICK",
       light: true,
-      lastUpdate: Date.now(),
-    })
+      lastUpdate: Date.now()
+    });
   }, 1000);
   return (
     <>
       <GetAllUsersComponent>
-        {(props) => {
-          if (props.loading) return <div>...</div>;
-          return <Table rowKey={'id'} columns={columns} dataSource={props.data ? props.data.allUsers : []} />
+        {props => {
+          if (props.loading) return <Spin size="large" />;
+          return (
+            <Table
+              rowKey="id"
+              columns={columns}
+              dataSource={props.data ? props.data.allUsers : []}
+            />
+          );
         }}
       </GetAllUsersComponent>
       <Clock />
@@ -48,4 +54,4 @@ const Index = () => {
   );
 }
 
-export default compose(withRedux, withApollo)(Index)
+export default compose(withRedux, withApollo)(Home);

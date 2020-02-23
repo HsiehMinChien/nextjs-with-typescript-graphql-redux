@@ -1,23 +1,23 @@
-import { createStore, } from 'redux'
+import { createStore } from "redux";
 
 const initialState = {
   lastUpdate: 0,
-  light: false,
+  light: false
 };
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case 'TICK':
+    case "TICK":
       return {
         ...state,
         lastUpdate: action.lastUpdate,
-        light: !!action.light,
-      }
+        light: !!action.light
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const initializeStore = (preloadedState = initialState) => {
   return createStore(reducer, preloadedState);
-}
+};
