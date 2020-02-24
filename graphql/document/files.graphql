@@ -1,3 +1,14 @@
+fragment File on File {
+  ...Node
+  createdAt
+  updatedAt
+  contentType
+  name
+  secret
+  size
+  url
+}
+
 query GetAllFiles {
   allFiles {
     ...File

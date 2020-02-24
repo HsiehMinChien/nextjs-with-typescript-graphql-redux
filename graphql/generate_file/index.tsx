@@ -1030,18 +1030,6 @@ export type FileFragment = (
   & Node_File_Fragment
 );
 
-export type UserFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'firstName' | 'lastName'>
-  & Node_User_Fragment
-);
-
-export type PostFragment = (
-  { __typename?: 'Post' }
-  & Pick<Post, 'createdAt' | 'title' | 'updatedAt' | 'url' | 'votes'>
-  & Node_Post_Fragment
-);
-
 export type GetAllFilesQueryVariables = {};
 
 
@@ -1053,6 +1041,12 @@ export type GetAllFilesQuery = (
   )> }
 );
 
+export type PostFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'createdAt' | 'title' | 'updatedAt' | 'url' | 'votes'>
+  & Node_Post_Fragment
+);
+
 export type GetAllPostsQueryVariables = {};
 
 
@@ -1062,6 +1056,12 @@ export type GetAllPostsQuery = (
     { __typename?: 'Post' }
     & PostFragment
   )> }
+);
+
+export type UserFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'firstName' | 'lastName'>
+  & Node_User_Fragment
 );
 
 export type GetAllUsersQueryVariables = {};
@@ -1092,13 +1092,6 @@ export const FileFragmentDoc = gql`
   url
 }
     ${NodeFragmentDoc}`;
-export const UserFragmentDoc = gql`
-    fragment User on User {
-  ...Node
-  firstName
-  lastName
-}
-    ${NodeFragmentDoc}`;
 export const PostFragmentDoc = gql`
     fragment Post on Post {
   ...Node
@@ -1107,6 +1100,13 @@ export const PostFragmentDoc = gql`
   updatedAt
   url
   votes
+}
+    ${NodeFragmentDoc}`;
+export const UserFragmentDoc = gql`
+    fragment User on User {
+  ...Node
+  firstName
+  lastName
 }
     ${NodeFragmentDoc}`;
 export const GetAllFilesDocument = gql`
@@ -1565,6 +1565,6 @@ export type Resolvers<ContextType = any> = {
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
 
-// Generated in 2020-02-23T21:04:49+08:00
+// Generated in 2020-02-25T00:19:04+08:00
 
 // Demo for nextjs with typescript graphql redux
