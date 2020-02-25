@@ -7,7 +7,8 @@ import useInterval from "../lib/useInterval";
 import Clock from "../components/clock";
 import {
   GetAllUsersComponent,
-  GetAllPostsComponent
+  GetAllPostsComponent,
+  GetAllComponent
 } from "../graphql/generate_file";
 import "antd/dist/antd.css";
 
@@ -164,7 +165,16 @@ function Home() {
         }
         key="clock"
       >
-        <Clock />
+        <GetAllComponent>
+          {props => {
+            if (props.loading) return <Spin size="large" />;
+            dispatch({
+              type: "ALL_DATA",
+              data: props.data
+            });
+            return <Clock />;
+          }}
+        </GetAllComponent>
       </TabPane>
     </Tabs>
   );

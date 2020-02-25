@@ -2,7 +2,8 @@ import { createStore } from "redux";
 
 const initialState = {
   lastUpdate: 0,
-  light: false
+  light: false,
+  data: {}
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -12,6 +13,11 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         lastUpdate: action.lastUpdate,
         light: !!action.light
+      };
+    case "ALL_DATA":
+      return {
+        ...state,
+        data: action.data
       };
     default:
       return state;

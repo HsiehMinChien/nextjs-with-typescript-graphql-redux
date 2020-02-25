@@ -1007,6 +1007,23 @@ export type UserSubscriptionPayload = {
   previousValues?: Maybe<UserPreviousValues>,
 };
 
+export type GetAllQueryVariables = {};
+
+
+export type GetAllQuery = (
+  { __typename?: 'Query' }
+  & { allUsers: Array<(
+    { __typename?: 'User' }
+    & UserFragment
+  )>, allFiles: Array<(
+    { __typename?: 'File' }
+    & FileFragment
+  )>, allPosts: Array<(
+    { __typename?: 'Post' }
+    & PostFragment
+  )> }
+);
+
 type Node_File_Fragment = (
   { __typename?: 'File' }
   & Pick<File, 'id'>
@@ -1109,6 +1126,39 @@ export const UserFragmentDoc = gql`
   lastName
 }
     ${NodeFragmentDoc}`;
+export const GetAllDocument = gql`
+    query GetAll {
+  allUsers {
+    ...User
+  }
+  allFiles {
+    ...File
+  }
+  allPosts {
+    ...Post
+  }
+}
+    ${UserFragmentDoc}
+${FileFragmentDoc}
+${PostFragmentDoc}`;
+export type GetAllComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllQuery, GetAllQueryVariables>, 'query'>;
+
+    export const GetAllComponent = (props: GetAllComponentProps) => (
+      <ApolloReactComponents.Query<GetAllQuery, GetAllQueryVariables> query={GetAllDocument} {...props} />
+    );
+    
+export type GetAllProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetAllQuery, GetAllQueryVariables> & TChildProps;
+export function withGetAll<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetAllQuery,
+  GetAllQueryVariables,
+  GetAllProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetAllQuery, GetAllQueryVariables, GetAllProps<TChildProps>>(GetAllDocument, {
+      alias: 'getAll',
+      ...operationOptions
+    });
+};
+export type GetAllQueryResult = ApolloReactCommon.QueryResult<GetAllQuery, GetAllQueryVariables>;
 export const GetAllFilesDocument = gql`
     query GetAllFiles {
   allFiles {
@@ -1565,6 +1615,6 @@ export type Resolvers<ContextType = any> = {
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
 
-// Generated in 2020-02-25T00:19:04+08:00
+// Generated in 2020-02-26T00:56:03+08:00
 
 // Demo for nextjs with typescript graphql redux
