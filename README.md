@@ -20,6 +20,10 @@ This project is for demo next.js with Typescript, redux, graphQL(apollo), and gr
 
 - From [nextjs with apollo and redux](https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn)
 
+## Simple online demo
+
+[Online demo](https://nextjs-with-typescript-graphql-redux-7x4xuh9we.now.sh)
+
 ## Reference
 
 1. [GraphQL code generator](https://graphql-code-generator.com/)
@@ -29,3 +33,4 @@ This project is for demo next.js with Typescript, redux, graphQL(apollo), and gr
 5. [nextjs with css](https://github.com/zeit/next-plugins/tree/master/packages/next-css)
 6. [Prettier](https://prettier.io/)
 7. [nextjs with stylus](https://github.com/zeit/next-plugins/tree/master/packages/next-stylus)
+8. [zeit now](https://github.com/zeit/now)
