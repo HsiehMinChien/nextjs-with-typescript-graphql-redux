@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import cx from "classnames";
-import "./style.styl";
+// import "./style.styl";
 
 const useClock = () => {
   return useSelector(
