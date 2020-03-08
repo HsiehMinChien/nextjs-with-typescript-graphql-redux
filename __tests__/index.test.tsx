@@ -1,6 +1,5 @@
 import { shallow } from "enzyme";
 import React from "react";
-// import { render } from "react-testing-library";
 
 import Clock from "../components/clock";
 import { Provider } from "react-redux";
@@ -18,6 +17,7 @@ describe("With Enzyme", () => {
         <Clock />
       </Provider>
     );
-    expect(clock.props()["children"]).toEqual(<Clock />);
+    expect(clock.props().children).toEqual(<Clock />);
+    expect(clock).toMatchSnapshot();
   });
 });
