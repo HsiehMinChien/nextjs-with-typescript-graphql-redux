@@ -3,7 +3,7 @@ module.exports = {
   testEnvironment: "node",
   moduleFileExtensions: ["ts", "tsx", "js", "styl"],
   moduleNameMapper: {
-    "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    "\\.(css|less|styl)$": "<rootDir>/__mocks__/styleMock.js"
   },
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest"
