@@ -16,6 +16,12 @@ This project is for demo next.js with Typescript, redux, graphQL(apollo), and gr
   npm gen
 ```
 
+## Perform unit test
+
+```
+  npm run test
+```
+
 ## GraphQL api resource (Play ground)
 
 - From [nextjs with apollo and redux](https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn)
@@ -34,3 +40,4 @@ This project is for demo next.js with Typescript, redux, graphQL(apollo), and gr
 6. [Prettier](https://prettier.io/)
 7. [nextjs with stylus](https://github.com/zeit/next-plugins/tree/master/packages/next-stylus)
 8. [zeit now](https://github.com/zeit/now)
+9. [nextjs with typescript and jest](https://github.com/arcatdmz/nextjs-with-jest-typescript)
